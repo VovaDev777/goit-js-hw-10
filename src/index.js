@@ -3,7 +3,7 @@ import SlimSelect from 'slim-select';
 const catSelectList = document.querySelector('.breed-select');
 const infoAboutCats = document.querySelector('.cat-info');
 const loading = document.querySelector('.loader');
-const error = document.querySelector('.error');
+// const error = document.querySelector('.error');
 
 const BASE_URL = 'https://api.thecatapi.com/v1/';
 const ENDPOINT = 'breeds';
@@ -15,14 +15,13 @@ function getCatsBreed () {
     .then((resp) => {
         if(!resp.ok) {
             throw new Error(resp.statusText);
-        }
-
+        } 
         return resp.json();
     })
 }
 
 
-
+loading.classList.remove('visible'); 
 getCatsBreed()
     .then((data) => catSelectList.insertAdjacentHTML('beforeend', createCatsList(data)))
     // .then((data) => console.log(data))
@@ -30,7 +29,6 @@ getCatsBreed()
 
 
 function createCatsList (arr) {
-    
     return arr.map(({name, id}) => `<option value="${id}">${name}</option>`).join()
 }
 
